@@ -42,6 +42,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		
+		int id = employee.getId();
+		  
+		Optional<Employee>e = repo.findById(id);
+		e.orElseThrow(()->new EmployeeNotFountException("Employee Not Extst"));
+		
 		return repo.save(employee);
 	}
 	

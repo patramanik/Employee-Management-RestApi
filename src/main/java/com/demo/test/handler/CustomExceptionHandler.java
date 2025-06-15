@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.demo.test.dto.ApiResponse;
 import com.demo.test.exception.EmployeeNotFountException;
 
 
@@ -12,9 +13,11 @@ import com.demo.test.exception.EmployeeNotFountException;
 public class CustomExceptionHandler {
 	
 	@ExceptionHandler(EmployeeNotFountException.class)
-	public ResponseEntity<String> handlerEmployeeNotFount(EmployeeNotFountException enfe)
+	public ResponseEntity<ApiResponse<String>> handlerEmployeeNotFount(EmployeeNotFountException enfe)
 	
 	{
-		return new ResponseEntity<String>(enfe.getMessage(), HttpStatus.NOT_FOUND);
+		ApiResponse<String> response = new ApiResponse<String>(false,enfe.getMessage());
+		
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 }
